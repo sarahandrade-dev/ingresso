@@ -1,0 +1,170 @@
+:root {
+  --sky: #C9D3FF;
+  --sky-dot: #B5C1FA;
+  --ticket: #FFE680;
+  --ticket-edge: #F5D65A;
+  --ink: #1F2A6B;
+  --ink-soft: #4A5390;
+  --pop: #FF6F91;
+  --pop-ink: #FFFFFF;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sky: #151B42;
+    --sky-dot: #1F2760;
+    --ticket: #F2D86A;
+    --ticket-edge: #DCC250;
+    --ink: #1A2360;
+    --ink-soft: #3E4785;
+    --pop: #FF6F91;
+    --pop-ink: #FFFFFF;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --sky: #151B42;
+  --sky-dot: #1F2760;
+  --ticket: #F2D86A;
+  --ticket-edge: #DCC250;
+  --ink: #1A2360;
+  --ink-soft: #3E4785;
+  --pop: #FF6F91;
+  --pop-ink: #FFFFFF;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--sky);
+  background-image: radial-gradient(var(--sky-dot) 1.5px, transparent 1.6px);
+  background-size: 22px 22px;
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+}
+
+.ticket {
+  width: 100%;
+  max-width: 640px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background: var(--ticket);
+  border-radius: 18px;
+  box-shadow: 0 2px 0 var(--ticket-edge), 0 18px 40px rgba(20, 25, 70, .22);
+  transform: rotate(-1.5deg);
+  animation: chegar .9s cubic-bezier(.2, .9, .3, 1.2) both;
+  position: relative;
+}
+@keyframes chegar {
+  from { opacity: 0; transform: translateY(-40px) rotate(-8deg); }
+  to   { opacity: 1; transform: translateY(0) rotate(-1.5deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ticket { animation: none; }
+}
+
+.main { padding: 2.25rem 2rem 2rem; }
+.ola {
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin: 0 0 .5rem;
+  color: var(--ink-soft);
+}
+h1 {
+  font-family: "Bagel Fat One", "Arial Rounded MT Bold", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 3.3rem);
+  line-height: 1;
+  margin: 0 0 1rem;
+  letter-spacing: -.01em;
+}
+.texto {
+  font-size: 1.1rem;
+  line-height: 1.55;
+  margin: 0 0 1.75rem;
+  max-width: 34ch;
+}
+
+.play {
+  display: inline-flex;
+  align-items: center;
+  gap: .85rem;
+  background: var(--pop);
+  color: var(--pop-ink);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 1.15rem;
+  padding: .9rem 1.5rem .9rem .9rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 #D9476C;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.play:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #D9476C; }
+.play:active { transform: translateY(2px); box-shadow: 0 2px 0 #D9476C; }
+.play:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.play .bola {
+  width: 2.6rem; height: 2.6rem;
+  border-radius: 50%;
+  background: var(--pop-ink);
+  display: grid; place-items: center;
+}
+.play .bola svg { width: 1rem; height: 1rem; fill: var(--pop); margin-left: 3px; }
+
+.assinatura {
+  margin: 1.75rem 0 0;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.stub {
+  width: 150px;
+  padding: 2rem 1.25rem;
+  border-left: 3px dashed var(--ink-soft);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+  position: relative;
+}
+.stub::before, .stub::after {
+  content: "";
+  position: absolute;
+  left: -14px;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--sky);
+}
+.stub::before { top: -13px; }
+.stub::after { bottom: -13px; }
+.stub dl { margin: 0; }
+.stub dt { font-size: .8rem; color: var(--ink-soft); font-weight: 600; }
+.stub dd { margin: 0; font-weight: 800; font-size: 1rem; line-height: 1.25; }
+
+@media (max-width: 520px) {
+  .ticket { grid-template-columns: 1fr; transform: rotate(0); }
+  @keyframes chegar {
+    from { opacity: 0; transform: translateY(-30px) rotate(-5deg); }
+    to   { opacity: 1; transform: translateY(0) rotate(0); }
+  }
+  .main { padding: 2rem 1.5rem 1.5rem; }
+  .stub {
+    width: auto;
+    border-left: 0;
+    border-top: 3px dashed var(--ink-soft);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+  .stub::before, .stub::after { top: -14px; bottom: auto; left: auto; }
+  .stub::before { left: -13px; }
+  .stub::after { right: -13px; }
+}
